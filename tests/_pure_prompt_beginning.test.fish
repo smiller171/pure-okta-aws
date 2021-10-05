@@ -1,13 +1,14 @@
+source $current_dirname/fixtures/constants.fish
 source $current_dirname/../functions/_pure_prompt_beginning.fish
+@mesg (_print_filename $current_filename)
 
-@test "_pure_prompt_beginning: print prompt with newline for existing session" (
-    set _pure_fresh_session false
 
-    _pure_prompt_beginning
-) = '\n\r\033[K'
+function setup
+    _purge_configs
+    _disable_colors
+end
 
-@test "_pure_prompt_beginning: print prompt without newline for new session" (
-    set _pure_fresh_session true
 
+@test "_pure_prompt_beginning: clear line before printing prompt" (
     _pure_prompt_beginning
 ) = '\r\033[K'
